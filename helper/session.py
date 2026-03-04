@@ -31,6 +31,20 @@ def list_sessions():
     """
     return 1
 
+def save_message(session_id, message):
+    """
+    Save a message to the chat session in the database using the session_id and message
+    """
+    return 1
+
+def load_messages(session_id):
+    """
+    Load all the messages from the chat session in the database using the session_id
+    """
+    return 1
+
+
+
 def load_global_persona(user_id):
     """
     Load the global persona for the user from the database using the user_id
