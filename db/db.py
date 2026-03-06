@@ -56,7 +56,9 @@ class Database:
 
     def execute(self, query, params=()):
         with self.conn:
-            return self.conn.execute(query, params)
+            cursor = self.conn.execute(query, params)
+            self.conn.commit()
+            return cursor
 
     def query(self, query, params=()):
         cursor = self.conn.execute(query, params)
