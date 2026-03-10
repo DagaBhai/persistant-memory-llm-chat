@@ -33,7 +33,7 @@ def list_conversations(user_id:int):
     """
     List all the chat sessions from the database
     """
-    query = "SELECT conversation_id, title FROM conversations WHERE user_id=? ORDER by created_at ASC"
+    query = "SELECT conversation_id, title FROM conversations WHERE user_id=? ORDER by created_at DESC"
     params = (user_id,)
     return db.query(query, params)
 
