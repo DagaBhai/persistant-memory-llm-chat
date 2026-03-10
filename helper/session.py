@@ -17,7 +17,7 @@ def load_session(conversation_id:str):
     """
     Load the chat session from the database using the session_id
     """
-    query = "SELECT m.role, m.content FROM messages WHERE conversation_id = ? ORDER BY created_at ASC;"
+    query = "SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY created_at ASC;"
     params = (conversation_id,)
     return db.query(query, params)
 
@@ -31,7 +31,7 @@ def list_conversations(user_id:int):
     """
     List all the chat sessions from the database
     """
-    query = "SELECT conversation_id, title FROM conversations WHERE user_id=?"
+    query = "SELECT conversation_id, title FROM conversations WHERE user_id=? ORDER by created_at ASC"
     params = (user_id,)
     return db.query(query, params)
 
