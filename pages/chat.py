@@ -7,6 +7,7 @@ from helper import (
     save_message_n_message_embeddings,
     retrieve_context,
     delete_session,
+    load_global_persona,
 )
 
 from helper import get_gemini_response, create_session_name
@@ -39,7 +40,7 @@ if st.sidebar.button("➕ New Chat"):
     st.rerun()
 
 
-# Load user conversations
+# Load user conversations and create sidebar
 conversations = list_conversations(st.session_state.user["user_id"])
 for conv in conversations:
     if len(conv["title"])>30:
@@ -57,7 +58,6 @@ for conv in conversations:
             st.session_state.messages = [
                 {"role": r["role"], "content": r["content"]} for r in rows
             ]
-
             st.session_state.first_response = False
             st.rerun()
 
@@ -82,7 +82,6 @@ for message in st.session_state.messages:
 # ---------------- USER INPUT ---------------- #
 
 if prompt := st.chat_input("Ask something..."):
-
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({
         "role": "user",
@@ -94,19 +93,20 @@ if prompt := st.chat_input("Ask something..."):
 
     context_list = retrieve_context(prompt, top_k=5)
     context_text = "\n".join(context_list)
-
     history = "\n".join(
         f"{m['role']}: {m['content']}"
         for m in st.session_state.messages[-6:]
     )
 
+    system_instructions = load_global_persona(st.session_state['user']['user_id'])
     system_instructions = f""" 
-        You are a helpful assitant. Answer the questions of the user.
+        # {system_instructions[0]}
+
         While answering use your long term memory whenever needed.
         Here is your long term memory:
         {context_text}
     """
-
+    print(system_instructions)
     prompt_history = f"""conversation History:
         {history}
 

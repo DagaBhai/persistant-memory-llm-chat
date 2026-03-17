@@ -53,8 +53,6 @@ def register_user(email:str, password:str):
     """
     Register a new user using the email and password
     """
-    print("the password: ",password)
     hashed_password = _hash_password(password)
-    print(hashed_password)
     _create_user(email, hashed_password)
     return 1

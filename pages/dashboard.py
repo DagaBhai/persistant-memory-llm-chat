@@ -11,7 +11,7 @@ st.write(f"Logged in as: **{user['email']}**")
 st.divider()
 
 new_persona = st.text_area(
-        "Edit Global Persona:", 
+        "Edit system instructions:", 
         value=user['global_persona'],
         help="This is the system message sent to the LLM."
 )

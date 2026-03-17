@@ -2,13 +2,13 @@ import streamlit as st
 from helper.auth import register_user, authenticate_user
 
 st.title("College Project Access")
-st.text("For Demonstration purpose use the username 'new' with no password. ")
+st.text("For Demonstration purpose use the username 'test' with no password. ")
 
 tab1, tab2 = st.tabs(["Login", "Register"])
 
 with tab1:
     with st.form("login_form"):
-        email = st.text_input("Email")
+        email = st.text_input("Email", placeholder="use 'test' for testing")
         password = st.text_input("Password", type="password")
         if st.form_submit_button("Login"):
             result = authenticate_user(email, password)

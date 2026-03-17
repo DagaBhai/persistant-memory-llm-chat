@@ -90,7 +90,6 @@ def save_global_persona(user_id, persona):
     """
     query = "UPDATE users SET global_persona=? WHERE user_id=?"
     params = (persona, user_id,)
-    print(params)
     return db.execute(query, params)
 
 def save_message_n_message_embeddings(conversation_id, role, content):
