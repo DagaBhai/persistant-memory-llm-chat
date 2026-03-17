@@ -4,5 +4,6 @@ sqlite-vec
 google-genai
 passlib
 argon2
+argon2_cffi
 sentence_transformers
 python-dotenv
