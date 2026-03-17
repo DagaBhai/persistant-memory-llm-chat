@@ -4,7 +4,6 @@ A Streamlit-based chat application featuring **Retrieval-Augmented Generation (R
 
 ## Demonstration Urls
    [Live demonstration](https://persistant-memory-llm-chat.streamlit.app/)
-   
 
    [Github url](https://github.com/newtaves/persistant-memory-llm-chat)
 
@@ -23,10 +22,48 @@ A Streamlit-based chat application featuring **Retrieval-Augmented Generation (R
 - **Backend**: Python
 - **Database**: SQLite with vector extensions (sqlite-vec)
 - **AI/ML**: Google Gemini API, Sentence Transformers
-- **Authentication**: Passlib with Argon2 hashing
-- **Environment Management**: python-dotenv
 
-## Setup
+## Project Structure
+```
+persistant-memory-llm-chat/
+├── .streamlit/
+├── db/
+│   ├── __init__.py
+│   ├── database.sql #Contains schema
+│   └── db.py  #Contains helper function to initalize the database
+│   
+├── helper/
+│   ├── __init__.py
+│   ├── auth.py   # Authentication query and logic 
+│   ├── embeddings.py
+│   ├── gemini.py
+│   └── session.py  #Contains sql queries
+│   
+├── models/
+│   ├── 1_Pooling/
+│   │   └── config.json
+│   ├── config.json
+│   ├── config_sentence_transformers.json
+│   ├── model.safetensors
+│   ├── modules.json
+│   ├── README.md
+│   ├── sentence_bert_config.json
+│   ├── tokenizer.json
+│   └── tokenizer_config.json
+├── pages/
+│   ├── __init__.py
+│   ├── auth.py
+│   ├── chat.py
+│   └── dashboard.py
+├── .env
+├── .gitignore
+├── college_project.db   # The database
+├── README.md
+├── requirements.txt
+└── streamlit_app.py
+```
+
+## Local Setup
 
 ### Prerequisites
 
@@ -37,7 +74,7 @@ A Streamlit-based chat application featuring **Retrieval-Augmented Generation (R
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/newtaves/persistant-memory-llm-chat
    cd persistant-memory-llm-chat
    ```
 
@@ -108,15 +145,8 @@ Stores individual chat messages within conversations.
 #### `message_embeddings`
 Vector embeddings table for RAG functionality using sqlite-vec.
 - `message_id_ref` (INTEGER, PRIMARY KEY): Reference to message_id in messages table
-- `embedding` (FLOAT[768]): 768-dimensional vector embedding for semantic search
+- `embedding` (FLOAT[384]): 768-dimensional vector embedding for semantic search
 
-### Triggers
-
-#### `update_conv_timestamp`
-Automatically updates the `updated_at` timestamp in the `conversations` table whenever a new message is inserted.
-
-#### `delete_embedding_when_message_deleted`
-Ensures that when a message is deleted, its corresponding embedding is also removed from the `message_embeddings` table to maintain data consistency.
 
 ### Relationships
 
@@ -140,18 +170,6 @@ The application implements **Retrieval-Augmented Generation (RAG)** to provide c
 - **Table**: `message_embeddings` stores embeddings as byte arrays
 - **Indexing**: Uses vector indexing for fast similarity searches
 
-### Retrieval Process
-1. **Query Encoding**: User messages are encoded into vectors using the same embedding model
-2. **Similarity Search**: Vector similarity search finds the most relevant historical messages
-3. **Context Assembly**: Top-k most similar messages (default k=5) are retrieved and combined
-4. **Augmented Prompt**: Retrieved context is added to the prompt sent to the LLM
-
-
-### Benefits
-- **Context Awareness**: Responses consider conversation history beyond the current session
-- **Scalability**: Vector search enables efficient retrieval from large conversation histories
-- **Semantic Understanding**: Captures meaning rather than just keyword matching
-- **Persistent Memory**: Long-term memory across sessions and application restarts
 
 ## Screenshots
 
