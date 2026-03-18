@@ -1,6 +1,6 @@
 # Persistent Memory LLM Chat with RAG
 
-A Streamlit-based chat application featuring **Retrieval-Augmented Generation (RAG)** with persistent memory management. This project demonstrates how to build an AI-powered chat interface that maintains conversation history and uses vector embeddings for context retrieval.
+A Streamlit-based chat application featuring **Retrieval-Augmented Generation (RAG)** with persistent memory management. This project demonstrates how to build an AI-powered chat interface that maintains conversation history and uses vector embeddings to get context from past chats.
 
 ## Demonstration Urls
    [Live demonstration](https://persistant-memory-llm-chat.streamlit.app/)
@@ -30,7 +30,7 @@ persistant-memory-llm-chat/
 ├── db/
 │   ├── __init__.py
 │   ├── database.sql       #Contains schema
-│   └── db.py              #Contains helper function to initalize the database
+│   └── db.py              #Contains helper function to initalize and connect the database
 │   
 ├── helper/
 │   ├── __init__.py
@@ -182,3 +182,5 @@ The application implements **Retrieval-Augmented Generation (RAG)** to provide c
 ![Application Interface](https://github.com/user-attachments/assets/bb1c1262-4e4a-4e9f-8807-89b709e7c0f9)
 
 The application can recall and utilize previous conversations when needed, providing context-aware responses through its RAG implementation.
+![streamlit-streamlit_app-2026-03-17-22-20-43](https://github.com/user-attachments/assets/ed46d9c5-dce0-4e71-a9b7-c396b9adc331)
+
