@@ -20,7 +20,7 @@ A Streamlit-based chat application featuring **Retrieval-Augmented Generation (R
 
 - **Frontend**: Streamlit
 - **Backend**: Python
-- **Database**: SQLite with vector extensions (sqlite-vec)
+- **Database**: Neon postgres with pgvector(for embeddings)
 - **AI/ML**: Google Gemini API, Sentence Transformers
 
 ## Project Structure
@@ -29,15 +29,15 @@ persistant-memory-llm-chat/
 ├── .streamlit/
 ├── db/
 │   ├── __init__.py
-│   ├── database.sql #Contains schema
-│   └── db.py  #Contains helper function to initalize the database
+│   ├── database.sql       #Contains schema
+│   └── db.py              #Contains helper function to initalize the database
 │   
 ├── helper/
 │   ├── __init__.py
-│   ├── auth.py   # Authentication query and logic 
+│   ├── auth.py            # Authentication query and logic 
 │   ├── embeddings.py
 │   ├── gemini.py
-│   └── session.py  #Contains sql queries
+│   └── session.py         #Contains sql queries
 │   
 ├── models/
 │   ├── 1_Pooling/
@@ -57,7 +57,7 @@ persistant-memory-llm-chat/
 │   └── dashboard.py
 ├── .env
 ├── .gitignore
-├── college_project.db   # The database
+├── college_project.db   # The database but later switched to neon postgres database
 ├── README.md
 ├── requirements.txt
 └── streamlit_app.py
@@ -69,6 +69,7 @@ persistant-memory-llm-chat/
 
 - Python 3.8+
 - Google Gemini API key
+- Neon Postgres authentication key or local postgres server
 
 ### Installation
 
@@ -97,6 +98,7 @@ persistant-memory-llm-chat/
    Create a `.env` file in the root directory:
    ```
    GEMINI_API_KEY=your-gemini-api-key-here
+   DATABASE_URL=your-postgres-database-url
    ```
 
 5. **Run the application**
@@ -110,6 +112,10 @@ persistant-memory-llm-chat/
 2. **Dashboard**: View your account information
 3. **Chat**: Start new conversations or continue previous ones
 4. **Context Retrieval**: The app automatically retrieves relevant past messages for context-aware responses
+
+## ER Diagram
+![er diagram](https://github.com/user-attachments/assets/4909ac29-2b13-4510-a60c-b1ca190b236e)
+
 
 ## Database Schema
 
@@ -145,7 +151,7 @@ Stores individual chat messages within conversations.
 #### `message_embeddings`
 Vector embeddings table for RAG functionality using sqlite-vec.
 - `message_id_ref` (INTEGER, PRIMARY KEY): Reference to message_id in messages table
-- `embedding` (FLOAT[384]): 768-dimensional vector embedding for semantic search
+- `embedding` (FLOAT[384]): 384-dimensional vector embedding for semantic search
 
 
 ### Relationships
