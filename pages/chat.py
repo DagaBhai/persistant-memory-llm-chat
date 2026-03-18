@@ -43,15 +43,15 @@ if st.sidebar.button("➕ New Chat"):
 # Load user conversations and create sidebar
 conversations = list_conversations(st.session_state.user["user_id"])
 for conv in conversations:
-    if len(conv["title"])>30:
-        title = conv["title"][:30]+"..." or "Untitled"
+    if len(conv["title"])>26:
+        title = conv["title"][:26]+"..." or "Untitled"
     else:
         title = conv["title"] or "Untitled"
 
     col1, col2 = st.sidebar.columns([4, 1])
 
     with col1:
-        if st.button(title, key=conv["conversation_id"]):
+        if st.button(title, key=conv["conversation_id"], width="stretch"):
             st.session_state.conversation_id = conv["conversation_id"]
             rows = load_session(conv["conversation_id"])
 
@@ -72,6 +72,11 @@ for conv in conversations:
 
 
 # ---------------- DISPLAY CHAT ---------------- #
+
+if len(st.session_state.messages) == 0:
+    st.html(
+        "<h1 style='text-align: center; margin-top: 20vh;'>Ask Anything...</h1>",
+    )
 
 for message in st.session_state.messages:
 
