@@ -20,7 +20,7 @@ def _get_user(email):
     """
     Get the user from the database using the email
     """
-    query = "SELECT * FROM users WHERE email = ?"
+    query = "SELECT * FROM users WHERE email = %s"
     params = (email,)
     result = db.query(query, params)
 
@@ -30,7 +30,7 @@ def _create_user(email, hashed_password):
     """
     Create a new user in the database using the email and hashed_password
     """
-    query = "INSERT INTO users (email, password_hash, global_persona) VALUES (?, ?, ?)"
+    query = "INSERT INTO users (email, password_hash, global_persona) VALUES (%s, %s, %s)"
     params = (email, hashed_password, DEFAULT_GLOBAL_PERSONA)
     return db.execute(query, params)
 

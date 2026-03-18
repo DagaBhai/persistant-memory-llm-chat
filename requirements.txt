@@ -6,4 +6,5 @@ passlib
 argon2
 argon2_cffi
 sentence_transformers
-python-dotenv
+psycopg2-binary
+pgvector

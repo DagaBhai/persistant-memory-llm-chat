@@ -100,13 +100,12 @@ if prompt := st.chat_input("Ask something..."):
 
     system_instructions = load_global_persona(st.session_state['user']['user_id'])
     system_instructions = f""" 
-        # {system_instructions[0]}
+        # {system_instructions['global_persona']}
 
         While answering use your long term memory whenever needed.
         Here is your long term memory:
         {context_text}
     """
-    print(system_instructions)
     prompt_history = f"""conversation History:
         {history}
 
